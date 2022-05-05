@@ -1,7 +1,6 @@
 
 def exchanger(arr, val, res_list):
     # simple cases
-    print(val)
     if val == 0:
         return res_list
     if val == arr[-1]:
@@ -34,7 +33,7 @@ def exchanger(arr, val, res_list):
 if __name__ == "__main__":
 
     money = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5]
-    value = 14998
+    value = 13271
 
     ls = []
     res_list = exchanger(money, value, ls)
