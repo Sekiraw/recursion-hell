@@ -91,6 +91,45 @@ def roman_to_int(str, res=0):
         return roman_to_int(str[1:], res+1000)
 
 
+def median_of_two(list1, list2, res_list):
+    print(res_list)
+
+    # simple case
+    if len(list1) == 0 and len(list2) == 0:
+        # return res_list
+        if len(res_list) % 2 == 0:
+            med = len(res_list) / 2
+            return (res_list[int(med)] + res_list[int(med)-1]) / 2
+        else:
+            med = (len(res_list) - 1) / 2
+            return res_list[int(med)]
+
+    n = len(list1)
+    m = len(list2)
+
+    if n and m > 0:
+        if list2[0] > list1[0]:
+            res_list.append(list1[0])
+            nl = list1[1:]
+            return median_of_two(nl, list2, res_list)
+        if list1[0] > list2[0]:
+            res_list.append(list2[0])
+            nl = list2[1:]
+            return median_of_two(list1, nl, res_list)
+        if list1[0] == list2[0]:
+            res_list.append(list1[0])
+            nl = list1[1:]
+            return median_of_two(nl, list2, res_list)
+    elif n == 0 and m != 0:
+        res_list.append(list2[0])
+        nl = list2[1:]
+        return median_of_two(list1, nl, res_list)
+    elif m == 0 and n != 0:
+        res_list.append(list1[0])
+        nl = list1[1:]
+        return median_of_two(nl, list2, res_list)
+
+
 if __name__ == "__main__":
     # print(fact(6))
 
@@ -107,5 +146,8 @@ if __name__ == "__main__":
 
     # roman to integer
     # with empty stack
-    roman_to_int("MCMXCIV")
+    # roman_to_int("MCMXCIV")
 
+    # Median of Two Sorted Arrays (hard)
+    ls = []
+    print(median_of_two([1, 3, 5, 7, 9], [2, 6, 7, 8, 9], ls))
