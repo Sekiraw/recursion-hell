@@ -130,6 +130,35 @@ def median_of_two(list1, list2, res_list):
         return median_of_two(nl, list2, res_list)
 
 
+def kolatz(num, list):
+    # print(list)
+    # print(int(num))
+    if num == 1:
+        if 1 not in list:
+            list.append(1)
+        return list
+
+    if num % 2 == 0:
+        if num not in list:
+            list.append(int(num))
+        return kolatz(num / 2, list)
+    else:
+        if num not in list:
+            list.append(int(num))
+        return kolatz((num * 3) + 1, list)
+
+
+def search_insert(list, index):
+    for i in range(len(list)):
+        if list[i] == index:
+            return i
+    list.append(index)
+    list.sort()
+    for i in range(len(list)):
+        if list[i] == index:
+            return i
+
+
 if __name__ == "__main__":
     # print(fact(6))
 
@@ -142,6 +171,7 @@ if __name__ == "__main__":
     # reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum
     # as a linked list.
     # You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+    # <-- I assume that the basic lists are sorted -->
     # print(add_two([2, 4, 3], [5, 6, 4]))
 
     # roman to integer
@@ -149,5 +179,19 @@ if __name__ == "__main__":
     # roman_to_int("MCMXCIV")
 
     # Median of Two Sorted Arrays (hard)
-    ls = []
-    print(median_of_two([1, 3, 5, 7, 9], [2, 6, 7, 8, 9], ls))
+    # ls = []
+    # print(median_of_two([1, 3, 5, 7, 9], [2, 6, 7, 8, 9], ls))
+
+    # kolatz
+    # j = 10
+    # for i in range(1000):
+    #     j += 1
+    #     nls = kolatz(j, [])
+    #
+    # nls.sort()
+    # print(nls) # getting the numbers that it has gone through cuz why not
+
+    # Search Insert Position
+    # Given a sorted array of distinct integers and a target value, return the index if the target is found.
+    # If not, return the index where it would be if it were inserted in order.
+    print(search_insert([1, 3, 4, 5, 6], 5))
