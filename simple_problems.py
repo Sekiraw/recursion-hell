@@ -1,9 +1,8 @@
-
 def fact(num):
     if num == 1:
         return num
     else:
-        return num * fact(num-1)
+        return num * fact(num - 1)
 
 
 def eq(list1, list2):
@@ -40,7 +39,6 @@ def add_two(list1, list2):
     res = 0
 
     for i in range(len(list1) if len(list1) >= len(list2) else len(list2)):
-
         list1_digits_as_string += str(list1[i] if list1[i] else 0)
         list2_digits_as_string += str(list2[i] if list2[i] else 0)
 
@@ -62,7 +60,7 @@ def roman_to_int(str, res=0):
     if str[0] == "I":
         if len(str) > 1:
             if str[1] == "V":
-                return roman_to_int(str[2:], res+4)
+                return roman_to_int(str[2:], res + 4)
             if str[1] == "X":
                 return roman_to_int(str[2:], res + 9)
         return roman_to_int(str[1:], res + 1)
@@ -72,23 +70,23 @@ def roman_to_int(str, res=0):
     if str[0] == "X":
         if len(str) > 1:
             if str[1] == "L":
-                return roman_to_int(str[2:], res+40)
+                return roman_to_int(str[2:], res + 40)
             if str[1] == "C":
                 return roman_to_int(str[2:], res + 90)
-        return roman_to_int(str[1:], res+10)
+        return roman_to_int(str[1:], res + 10)
     if str[0] == "L":
-        return roman_to_int(str[1:], res+50)
+        return roman_to_int(str[1:], res + 50)
     if str[0] == "C":
         if len(str) > 1:
             if str[1] == "D":
-                return roman_to_int(str[2:], res+400)
+                return roman_to_int(str[2:], res + 400)
             if str[1] == "M":
                 return roman_to_int(str[2:], res + 900)
-        return roman_to_int(str[1:], res+100)
+        return roman_to_int(str[1:], res + 100)
     if str[0] == "D":
-        return roman_to_int(str[1:], res+500)
+        return roman_to_int(str[1:], res + 500)
     if str[0] == "M":
-        return roman_to_int(str[1:], res+1000)
+        return roman_to_int(str[1:], res + 1000)
 
 
 def median_of_two(list1, list2, res_list):
@@ -99,7 +97,7 @@ def median_of_two(list1, list2, res_list):
         # return res_list
         if len(res_list) % 2 == 0:
             med = len(res_list) / 2
-            return (res_list[int(med)] + res_list[int(med)-1]) / 2
+            return (res_list[int(med)] + res_list[int(med) - 1]) / 2
         else:
             med = (len(res_list) - 1) / 2
             return res_list[int(med)]
@@ -148,6 +146,7 @@ def kolatz(num, list):
         return kolatz((num * 3) + 1, list)
 
 
+# not recursion
 def search_insert(list, index):
     for i in range(len(list)):
         if list[i] == index:
@@ -157,6 +156,35 @@ def search_insert(list, index):
     for i in range(len(list)):
         if list[i] == index:
             return i
+
+
+# not recursion
+def search_range(list, target):
+    first = -1
+    last = 0
+    for i in range(len(list)):
+        if list[i] == target and first < 0:
+            first = i
+            last = i
+        if list[i] == target:
+            last = i
+
+    if first >= 0:
+        return [first, last]
+    else:
+        return [-1, 1]
+
+
+def search_range_rec(list, target, runs=0, first=-1, last=0):
+    if len(list) == 0:
+        if first < 0:
+            return [first, 1]
+        return [first, last]
+
+    if first < 0 and len(list) >= 0:
+        if list[0] == target:
+            return search_range_rec(list[1:], target, runs+1, runs, runs)
+    return search_range_rec(list[1:], target, runs+1, first, runs if list[0] == target else last)
 
 
 if __name__ == "__main__":
@@ -194,4 +222,10 @@ if __name__ == "__main__":
     # Search Insert Position
     # Given a sorted array of distinct integers and a target value, return the index if the target is found.
     # If not, return the index where it would be if it were inserted in order.
-    print(search_insert([1, 3, 4, 5, 6], 5))
+    # print(search_insert([1, 3, 4, 5, 6], 5))
+
+    # Find First and Last Position of Element in Sorted Array (medium)
+    # return [-1, 1] if it's not found
+    # print(search_range([5, 8, 7, 8, 8, 10], 8))
+    # same thing but with recursoin
+    print(search_range_rec([5, 8, 7, 8, 9, 7, 10], 7))
